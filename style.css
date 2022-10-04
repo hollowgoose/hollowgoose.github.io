@@ -88,6 +88,7 @@ button {
 
     .banner {
         height: 35vh;
+        letter-spacing: -5px;
     }
 
     .header {
