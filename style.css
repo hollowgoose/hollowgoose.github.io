@@ -74,6 +74,10 @@ button {
 
 @media only screen and (max-width: 1500px) {
 
+    .banner {
+        height: 50vh;   
+    }
+
     .header {
         font-size: 5em;
     }
@@ -81,6 +85,10 @@ button {
 }
 
 @media only screen and (max-width: 1240px) {
+
+    .banner {
+        height: 35vh;
+    }
 
     .header {
         font-size: 3em;
