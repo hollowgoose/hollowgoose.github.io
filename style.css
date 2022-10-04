@@ -74,7 +74,7 @@ button {
 
 @media only screen and (max-width: 1500px) {
 
-    .header_one {
+    .header {
         font-size: 5em;
     }
 
@@ -82,7 +82,7 @@ button {
 
 @media only screen and (max-width: 1240px) {
 
-    .header_one {
+    .header {
         font-size: 3em;
     }
 
