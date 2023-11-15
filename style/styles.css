@@ -143,11 +143,6 @@ body {
     transition: 0.25s;
 }
 
-.controls div:nth-child(2):hover {
-    background-color: white;
-    color: var(--red);
-}
-
 #progress {
     -webkit-appearance: none;
     appearance: none;
