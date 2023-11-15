@@ -135,27 +135,20 @@ forwardTrack.addEventListener("click", () => {
 });
 
 // UPDATE TRACKBAR TIME
-// audioPlayer.addEventListener("timeupdate", () => {
-//     const currentTime = audioPlayer.currentTime;
-//     const duration = audioPlayer.duration;
-//     const progressPercentage = (currentTime / duration) * 100;
-
-//     progress.value = progressPercentage;
-// });
-
-// MOVE PLAYHEAD FUNCTION
-// progress.addEventListener("input", () => {
-//     const seekTime = (progress.value / 100) * audioPlayer.duration;
-//     audioPlayer.currentTime = seekTime;
-// });
-
-// UPDATE TRACKBAR TIME
 function updateProgressBar() {
     const currentTime = audioPlayer.currentTime;
     const duration = audioPlayer.duration;
     const progressPercentage = (currentTime / duration) * 100;
 
     progress.value = progressPercentage;
+
+    // Check if the track has reached its end
+    if (currentTime === duration) {
+        // Automatically load and play the next track
+        currentTrackIndex = (currentTrackIndex + 1) % tracklist.length;
+        loadAndPlayTrack(tracklist[currentTrackIndex]);
+        progress.value = 0;
+    }
 
     // Use requestAnimationFrame for smoother updates
     requestAnimationFrame(updateProgressBar);
