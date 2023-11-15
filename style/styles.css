@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+:root {
+    --blue: #00b2f5;
+    --red: #f73669;
+    --yellow: #f5d932;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.app {
+    display: flex;
+    width: 95%;
+    height: 90%;
+    background-color: var(--blue);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* NAVIGATOR */
+
+.navigator {
+    position: relative;
+    height: 100%;
+    width: 25%;
+    min-width: 305px;
+    border-right: 1px solid white;
+    overflow-y: scroll;
+}
+
+.nav-item {
+    color: white;
+    transition: 0.2s;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    border-bottom: 1px solid #00698f;
+}
+
+.nav-item:last-child {
+    border: none;
+}
+
+.nav-item:hover {
+    background-color: #006386;
+    color: white;
+}
+
+/* TRACK VIEW */
+.player {
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.track-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.track-img {
+    width: 20%;
+    border-radius: 50%;
+    border: 8px solid var(--red);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+.meta-group {
+    margin-top: 25px;
+}
+
+#track-name {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+#track-artist {
+    font-size: 2em;
+}
+
+#track-name,
+#track-artist {
+    color: white;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+#track-time {
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+.controls {
+    margin-top: 20px;
+    width: 450px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls div {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--red);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.controls div:nth-child(2) {
+    transform: scale(1.4);
+    background-color: var(--red);
+    color: white;
+    transition: 0.25s;
+}
+
+.controls div:nth-child(2):hover {
+    background-color: white;
+    color: var(--red);
+}
+
+#progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 75%;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 40px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+#progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--red);
+    width: 30px;
+    height: 50px;
+    border: 6px solid var(--yellow);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #424242 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--red);
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+
+@media only screen and (max-width: 400px) {
+    .app {
+        width: 100%;
+        height: 100%;
+    }
+
+    .navigator {
+        display: none;
+    }
+
+    .player {
+        width: 100%;
+        padding: 0;
+    }
+
+    .track-view {
+        width: 100%;
+    }
+
+    .track-img {
+        width: 60%;
+    }
+
+    #track-name {
+        font-size: 2.25em;
+    }
+
+    #track-artist {
+        font-size: 1.5em;
+    }
+
+    #track-name,
+    #track-artist {
+        width: 100vw;
+    }
+
+    .controls {
+        width: 100%;
+    }
+
+    .controls div {
+        width: 75px;
+        height: 75px;
+    }
+}

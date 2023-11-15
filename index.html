@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>SSW EzPlayer</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="assets/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="assets/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="assets/favicon-16x16.png"
+        />
+        <link rel="manifest" href="assets/site.webmanifest" />
+        <link rel="stylesheet" href="style/styles.css" />
+        <script
+            src="https://kit.fontawesome.com/ba287f531f.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="app">
+                <!-- Navigator -->
+                <div class="navigator" id="navigator">
+                    <div class="nav-items" id="nav-items">
+                        <!-- Populated from Script -->
+                    </div>
+                </div>
+
+                <!-- Track Viewer -->
+                <div class="player">
+                    <div class="track-view">
+                        <img
+                            class="track-img"
+                            src="media/impact_report_image.png"
+                            alt="SSW Impact Report Image"
+                        />
+                        <div class="meta-group">
+                            <h2 id="track-name">1. Foreword</h2>
+                            <h3 id="track-artist">Sight Support Worthing</h3>
+                        </div>
+
+                        <audio id="track">
+                            <source
+                                src="media/1. Foreword.mp3"
+                                type="audio/mpeg"
+                            />
+                        </audio>
+
+                        <input type="range" value="0" id="progress" />
+                        <p id="track-time">01:12 / 02:10</p>
+
+                        <div class="controls">
+                            <div id="back-track">
+                                <i class="fa-solid fa-backward"></i>
+                            </div>
+                            <div id="ctrlIcon">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <div id="forward-track">
+                                <i class="fa-solid fa-forward"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="./scripts/main.js"></script>
+    </body>
+</html>
