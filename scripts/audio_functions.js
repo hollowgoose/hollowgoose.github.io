@@ -23,14 +23,20 @@ export function loadTrack(track) {
 
 // Function to load and play a track
 function loadAndPlayTrack(track) {
+    document.getElementById("track-time").innerText = "Loading...";
+
     loadTrack(track);
 
     document.getElementById("track-name").innerText = track;
 
     audioPlayer.load(); // This ensures that the new source is loaded
-    audioPlayer.play().then(() => {
-        // Ensure the play button icon is updated
-        iconUpdater();
+
+    audioPlayer.addEventListener("canplaythrough", () => {
+        document.getElementById("track-time").innerText = "";
+        audioPlayer.play().then(() => {
+            // Ensure the play button icon is updated
+            iconUpdater();
+        });
     });
 }
 

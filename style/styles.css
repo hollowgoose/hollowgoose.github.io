@@ -98,6 +98,7 @@ body {
 #track-name {
     font-size: 3em;
     margin-bottom: 10px;
+    text-overflow: ellipsis;
 }
 
 #track-artist {
