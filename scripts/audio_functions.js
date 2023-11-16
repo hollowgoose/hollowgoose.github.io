@@ -23,6 +23,9 @@ export function loadTrack(track) {
 
 // Function to load and play a track
 function loadAndPlayTrack(track) {
+    console.log("Loading and playing track:", track);
+    console.log("Current track index:", currentTrackIndex);
+
     document.getElementById("track-time").innerText = "Loading...";
 
     loadTrack(track);
@@ -33,10 +36,15 @@ function loadAndPlayTrack(track) {
 
     audioPlayer.addEventListener("canplaythrough", () => {
         document.getElementById("track-time").innerText = "";
-        audioPlayer.play().then(() => {
-            // Ensure the play button icon is updated
-            iconUpdater();
-        });
+        audioPlayer
+            .play()
+            .then(() => {
+                // Ensure the play button icon is updated
+                iconUpdater();
+            })
+            .catch((error) => {
+                console.error("Error playing audio:", error);
+            });
     });
 }
 
@@ -53,8 +61,13 @@ export function populateTracks(tracks) {
 
         navItem.appendChild(itemText);
 
-        navItem.addEventListener("click", () => {
-            loadAndPlayTrack(track);
+        navItem.addEventListener("click", (event) => {
+            const clickedIndex = parseInt(
+                event.currentTarget.getAttribute("index"),
+                10
+            );
+            currentTrackIndex = clickedIndex;
+            loadAndPlayTrack(tracklist[currentTrackIndex]);
         });
 
         navItems.appendChild(navItem);
@@ -160,7 +173,30 @@ function updateProgressBar() {
     requestAnimationFrame(updateProgressBar);
 }
 
-audioPlayer.addEventListener("timeupdate", updateProgressBar);
+audioPlayer.addEventListener("timeupdate", () => {
+    updateProgressBar();
+
+    // Update the currentTrackIndex when the track is finished
+    if (audioPlayer.currentTime === audioPlayer.duration && !isTrackChanging) {
+        isTrackChanging = true; // Set the flag to true to avoid multiple executions
+
+        console.log("Track finished. Current track index:", currentTrackIndex);
+
+        if (manualTrackChange) {
+            // Handle logic for manual track change
+            console.log("Manual track change");
+            manualTrackChange = false; // Reset the flag
+        } else {
+            // Handle logic for natural track end
+            console.log("Natural track end");
+            currentTrackIndex = (currentTrackIndex + 1) % tracklist.length;
+            loadAndPlayTrack(tracklist[currentTrackIndex], () => {
+                isTrackChanging = false; // Reset the flag when the track is successfully changed
+            });
+            progress.value = 0;
+        }
+    }
+});
 
 // MOVE PLAYHEAD FUNCTION
 progress.addEventListener("input", () => {
