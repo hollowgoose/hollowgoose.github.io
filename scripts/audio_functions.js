@@ -56,6 +56,10 @@ export function populateTracks(tracks) {
         const navItem = document.createElement("div");
         navItem.classList.add("nav-item");
         navItem.setAttribute("index", index);
+        navItem.setAttribute("role", "button");
+        navItem.setAttribute("tabindex", "0");
+        navItem.setAttribute("aria-label", `Select Track: ${track}`);
+        navItem.setAttribute;
         const itemText = document.createElement("p");
         itemText.innerHTML = track;
 

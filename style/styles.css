@@ -44,7 +44,6 @@ body {
     height: 100%;
     width: 25%;
     min-width: 305px;
-    border-right: 1px solid white;
     overflow-y: scroll;
 }
 

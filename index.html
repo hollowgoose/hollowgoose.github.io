@@ -38,7 +38,7 @@
         <div class="container">
             <div class="app">
                 <!-- Navigator -->
-                <div class="navigator" id="navigator">
+                <div class="navigator" id="navigator" role="navigation">
                     <div class="nav-items" id="nav-items">
                         <!-- Populated from Script -->
                     </div>
@@ -51,6 +51,7 @@
                             class="track-img"
                             src="media/impact_report_image.png"
                             alt="SSW Impact Report Image"
+                            role="img"
                         />
                         <div class="meta-group">
                             <h2 id="track-name">1. Foreword</h2>
@@ -68,13 +69,28 @@
                         <p id="track-time">01:12 / 02:10</p>
 
                         <div class="controls">
-                            <div id="back-track">
+                            <div
+                                id="back-track"
+                                tabindex="0"
+                                role="button"
+                                aria-label="Previous Track"
+                            >
                                 <i class="fa-solid fa-backward"></i>
                             </div>
-                            <div id="ctrlIcon">
+                            <div
+                                id="ctrlIcon"
+                                tabindex="0"
+                                role="button"
+                                aria-label="Play or Pause Track"
+                            >
                                 <i class="fa-solid fa-play"></i>
                             </div>
-                            <div id="forward-track">
+                            <div
+                                id="forward-track"
+                                tabindex="0"
+                                role="button"
+                                aria-label="Skip Track"
+                            >
                                 <i class="fa-solid fa-forward"></i>
                             </div>
                         </div>
