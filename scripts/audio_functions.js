@@ -28,7 +28,14 @@ function loadAndPlayTrack(track) {
 
     document.getElementById("track-time").innerText = "Loading...";
 
+    clearSelection();
+
     loadTrack(track);
+
+    const currentNavItem = document.querySelector(
+        `.nav-item[index="${currentTrackIndex}"]`
+    );
+    currentNavItem.classList.add("selected");
 
     document.getElementById("track-name").innerText = track;
 
@@ -59,22 +66,42 @@ export function populateTracks(tracks) {
         navItem.setAttribute("role", "button");
         navItem.setAttribute("tabindex", "0");
         navItem.setAttribute("aria-label", `Select Track: ${track}`);
-        navItem.setAttribute;
+
         const itemText = document.createElement("p");
         itemText.innerHTML = track;
 
         navItem.appendChild(itemText);
 
-        navItem.addEventListener("click", (event) => {
+        navItem.addEventListener("click", async (event) => {
             const clickedIndex = parseInt(
                 event.currentTarget.getAttribute("index"),
                 10
             );
             currentTrackIndex = clickedIndex;
-            loadAndPlayTrack(tracklist[currentTrackIndex]);
+
+            clearSelection(); // Remove "selected" class from all navigation items
+
+            navItems.querySelectorAll(".nav-item").forEach((item) => {
+                item.setAttribute("aria-selected", "false");
+            });
+
+            // Select the clicked item
+            event.currentTarget.classList.add("selected");
+
+            // Wait for loadAndPlayTrack to complete before setting aria-selected
+            await loadAndPlayTrack(tracklist[currentTrackIndex]);
+
+            // Set aria-selected for the clicked item
+            event.currentTarget.setAttribute("aria-selected", "true");
         });
 
         navItems.appendChild(navItem);
+
+        // Add "selected" class to the first navigation item
+        if (index === 0) {
+            navItem.classList.add("selected");
+            navItem.setAttribute("aria-selected", "true");
+        }
     });
 }
 
@@ -88,6 +115,15 @@ function iconUpdater() {
         playIcon.classList.remove("fa-play");
         playIcon.classList.add("fa-pause");
     }
+}
+
+// Clear 'Selected' Class
+function clearSelection() {
+    const navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach((item) => {
+        item.classList.remove("selected");
+        item.setAttribute("aria-selected", "false");
+    });
 }
 
 // UPDATE TRACK TIME
@@ -144,10 +180,17 @@ backTrack.addEventListener("click", () => {
         console.log("Rewinding Current Track");
         audioPlayer.currentTime = 0;
     }
+
+    const newCurrentNavItem = document.querySelector(
+        `.nav-item[index="${currentTrackIndex}"]`
+    );
+    newCurrentNavItem.classList.add("selected");
+    newCurrentNavItem.setAttribute("aria-selected", "true");
 });
 
 // FORWARD BUTTON FUNCTION
 forwardTrack.addEventListener("click", () => {
+    clearSelection();
     currentTrackIndex = (currentTrackIndex + 1) % tracklist.length;
     console.log(
         "Loading and Playing Next Track:",
@@ -155,6 +198,13 @@ forwardTrack.addEventListener("click", () => {
     );
     loadAndPlayTrack(tracklist[currentTrackIndex]);
     progress.value = 0;
+
+    // Set "aria-selected" for the new current track
+    const newCurrentNavItem = document.querySelector(
+        `.nav-item[index="${currentTrackIndex}"]`
+    );
+    newCurrentNavItem.classList.add("selected");
+    newCurrentNavItem.setAttribute("aria-selected", "true");
 });
 
 // UPDATE TRACKBAR TIME
@@ -198,6 +248,12 @@ audioPlayer.addEventListener("timeupdate", () => {
                 isTrackChanging = false; // Reset the flag when the track is successfully changed
             });
             progress.value = 0;
+
+            const newCurrentNavItem = document.querySelector(
+                `.nav-item[index="${currentTrackIndex}"]`
+            );
+            newCurrentNavItem.classList.add("selected");
+            newCurrentNavItem.setAttribute("aria-selected", "true");
         }
     }
 });
