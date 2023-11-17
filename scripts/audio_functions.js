@@ -209,22 +209,28 @@ forwardTrack.addEventListener("click", () => {
 
 // UPDATE TRACKBAR TIME
 function updateProgressBar() {
-    const currentTime = audioPlayer.currentTime;
-    const duration = audioPlayer.duration;
-    const progressPercentage = (currentTime / duration) * 100;
+    if (audioPlayer.readyState === 4) {
+        // Check if the track is fully loaded
+        const currentTime = audioPlayer.currentTime;
+        const duration = audioPlayer.duration;
+        const progressPercentage = (currentTime / duration) * 100;
 
-    progress.value = progressPercentage;
+        progress.value = progressPercentage;
 
-    // Check if the track has reached its end
-    if (currentTime === duration) {
-        // Automatically load and play the next track
-        currentTrackIndex = (currentTrackIndex + 1) % tracklist.length;
-        loadAndPlayTrack(tracklist[currentTrackIndex]);
-        progress.value = 0;
+        // Check if the track has reached its end
+        if (currentTime === duration) {
+            // Automatically load and play the next track
+            currentTrackIndex = (currentTrackIndex + 1) % tracklist.length;
+            loadAndPlayTrack(tracklist[currentTrackIndex]);
+            progress.value = 0;
+        }
+
+        // Use requestAnimationFrame for smoother updates
+        requestAnimationFrame(updateProgressBar);
+    } else {
+        // Track is still loading, skip updating the trackbar
+        console.log("Track is still loading, skipping progress update");
     }
-
-    // Use requestAnimationFrame for smoother updates
-    requestAnimationFrame(updateProgressBar);
 }
 
 audioPlayer.addEventListener("timeupdate", () => {
